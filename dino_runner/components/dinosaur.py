@@ -49,8 +49,8 @@ class Dinosaur:
     def run(self):
         self.image = RUNNING[0] if self.step_index < 5 else RUNNING[1]
         self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS 
-        self.dino_rect.y = self.Y_POS
+        self.dino_rect.x = self.POS_X 
+        self.dino_rect.y = self.POS_Y
         self.step_index += 1
 
     def jump(self):
@@ -59,7 +59,7 @@ class Dinosaur:
             self.dino_rect.y -= self.jump_vel * 4
             self.jump_vel -= 0.8
         if self.jump_vel < -self.JUMP_VEL:
-            self.dino_rect.y = self.Y_POS
+            self.dino_rect.y = self.POS_Y
             self.dino_jump = False
             self.jump_vel = self.JUMP_VEL
         
@@ -67,6 +67,6 @@ class Dinosaur:
     def duck(self):
         self.image = DUCKING[0] if self.step_index < 5 else DUCKING[1]
         self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS 
-        self.dino_rect.y = self.Y_POS_DUCK
+        self.dino_rect.x = self.POS_X 
+        self.dino_rect.y = self.POS_Y_DUCK
         self.step_index += 1
