@@ -1,5 +1,5 @@
 import pygame 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, CLOUD, DEAD
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, CLOUD
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
@@ -15,7 +15,7 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.x_pos_cloud = 800
-        self.y_pos_cloud = 200
+        self.y_pos_cloud = 200 
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
@@ -42,7 +42,7 @@ class Game:
         self.power_up_manager.update(self.game_speed, self.points, self.player)
         self.points += 1
         if self.player.dino_dead:
-            self.player = False
+            self.player = True
 
     def draw(self):
         self.clock.tick(FPS)
@@ -52,8 +52,6 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
-        if self.player.dino_dead:
-            self.screen.blit(DEAD(80, 310))
         pygame.display.update()
         pygame.display.flip()
 
@@ -73,5 +71,5 @@ class Game:
         if self.x_pos_cloud <= -image_width:
             self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
             self.x_pos_cloud = 0
-        self.x_pos_cloud -= self.game_speed + 1
+        self.x_pos_cloud -= self.game_speed - 20
 
