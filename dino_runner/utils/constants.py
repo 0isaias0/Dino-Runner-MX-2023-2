@@ -71,6 +71,10 @@ BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
+FLY = pygame.image.load(os.path.join(IMG_DIR, 'Dino/DinoNube.png'))
+
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
+FLY_TYPE = "fly"
+

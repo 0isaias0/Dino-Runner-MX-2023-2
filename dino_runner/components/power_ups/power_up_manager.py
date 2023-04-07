@@ -1,6 +1,8 @@
 import random
 from dino_runner.components.power_ups.shield import Shield
 from dino_runner.components.power_ups.hammer import Hammer
+from dino_runner.components.power_ups.god_mode import GodMode
+
 
 class PowerUpManager:
     POINTS = 200
@@ -10,7 +12,7 @@ class PowerUpManager:
 
     def update(self, game_speed, points, player):
         if len(self.power_ups) == 0 and points % self.POINTS == 0:
-            new_power_up = random.choice([Shield(), Hammer()])
+            new_power_up = random.choice([Shield(), Hammer(), GodMode()])
             self.power_ups.append(new_power_up)
 
         for power_up in self.power_ups:

@@ -18,8 +18,12 @@ class ObstacleManager:
             self.obstacles.append(new_obstacle)
         for obstacle in self.obstacles:
             obstacle.update(game_speed, player)
+            if obstacle.rect.colliderect(player.dino_rect) and player.hammer:
+                self.obstacles.remove(obstacle)
+
             
             
     def draw(self, screen):
         for obstacle in self.obstacles:
             obstacle.draw(screen)
+

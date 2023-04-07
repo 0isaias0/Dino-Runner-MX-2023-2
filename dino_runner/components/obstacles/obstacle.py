@@ -16,6 +16,11 @@ class Obstacle:
            if not player.shield:
                pygame.time.delay(300)
                player.dino_dead = True
+           if player.hammer:
+               player.dino_dead = False
+              
+              
+
 
 
 

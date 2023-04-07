@@ -45,7 +45,7 @@ class Game:
     def update(self):
         if self.playing:
            user_input = pygame.key.get_pressed()
-           self.player.update(user_input)
+           self.player.update(user_input, self.game_speed, self.player)
            self.obstacle_manager.update(self.game_speed, self.player)
            self.power_up_manager.update(self.game_speed, self.points, self.player)
            self.points += 1
@@ -64,8 +64,10 @@ class Game:
            self.player.draw(self.screen)
            self.obstacle_manager.draw(self.screen)
            self.power_up_manager.draw(self.screen)
+           self.draw_score()
+           self.draw_deads()
         else:
-            self.draw_menu
+            self.draw_menu()
         pygame.display.update()
         pygame.display.flip()
 
@@ -84,15 +86,19 @@ class Game:
         image_width = CLOUD.get_width()
         self.screen.blit(CLOUD, (self.x_pos_cloud, self.y_pos_cloud))
         self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
-        if self.x_pos_cloud <= -image_width:
-            self.screen.blit(CLOUD, (image_width + self.x_pos_cloud, self.y_pos_cloud))
+        if self.x_pos_cloud >= SCREEN_WIDTH:
+            self.screen.blit(CLOUD, (self.x_pos_cloud - image_width, self.y_pos_cloud))
             self.x_pos_cloud = 0
-        self.x_pos_cloud -= self.game_speed - 20
+        self.x_pos_cloud += self.game_speed - 20
 
 
     def draw_score(self):
         score, score_rect = text_utils.get_message('points: ' + str(self.points), 20, 1000, 40)
         self.screen.blit(score, score_rect)
+
+    def draw_deads(self):
+        death_count, death_count_rect = text_utils.get_message('deaths: ' + str(self.death_count), 20, 1000, 70)
+        self.screen.blit(death_count, death_count_rect)
 
     def draw_menu(self):
         white_color = (255, 255, 255)
@@ -103,8 +109,12 @@ class Game:
         else:
             text, text_rect = text_utils.get_message('hahaha you loooooooose plese press any key to try again', 30)
             score, score_rect = text_utils.get_message('your score: ' + str(self.points), 30, height = SCREEN_HEIGHT//2 + 50)
+            death_count, death_count_rect = text_utils.get_message('deaths: ' + str(self.death_count), 30, height = SCREEN_HEIGHT//2 + 90)
             self.screen.blit(text, text_rect)
             self.screen.blit(score, score_rect)
+            self.screen.blit(death_count, death_count_rect)
+            
+
 
     def reset(self):
         self.game_speed = 20
